@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173a57" />
+    <meta name="description" content="Company registration and login for Kanvas Kings." />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Company access | Kanvas Kings</title>
+  </head>
+  <body class="access-page">
+    <header class="access-topbar">
+      <a class="access-brand" href="index.html" aria-label="Kanvas Kings home">
+        <img src="icon.svg" alt="" width="36" height="36" />
+        <span>Kanvas Kings</span>
+      </a>
+      <a class="access-back-link" href="index.html"><span aria-hidden="true">←</span> Back to tracker</a>
+    </header>
+    <main class="access-layout">
+      <section class="access-story" aria-labelledby="access-story-title">
+        <p class="access-eyebrow">MADE FOR THE WORK OUT THERE</p>
+        <h1 id="access-story-title">Every neighborhood is an opportunity.</h1>
+        <p class="access-story-copy">Keep your fieldwork organized, see the route ahead, and make every follow-up count.</p>
+        <ul class="access-benefits">
+          <li><span aria-hidden="true">✓</span> Track conversations at every door</li>
+          <li><span aria-hidden="true">✓</span> See your work on a neighborhood map</li>
+          <li><span aria-hidden="true">✓</span> Keep outcomes and follow-ups in view</li>
+        </ul>
+        <div class="access-story-note"><span aria-hidden="true">✳</span><span>Built for teams that do their best work face to face.</span></div>
+      </section>
+
+      <section class="access-card" aria-labelledby="access-title">
+        <div class="access-card-heading">
+          <p class="access-eyebrow">YOUR COMPANY WORKSPACE</p>
+          <h2 id="access-title">Get your team started</h2>
+          <p id="access-description">Create a company profile to bring your fieldwork together.</p>
+        </div>
+        <div class="access-tabs" role="tablist" aria-label="Company account">
+          <button class="access-tab is-active" id="register-tab" type="button" role="tab" aria-selected="true" aria-controls="register-panel">Register</button>
+          <button class="access-tab" id="login-tab" type="button" role="tab" aria-selected="false" aria-controls="login-panel" tabindex="-1">Log in</button>
+        </div>
+        <form class="access-form" id="register-panel" role="tabpanel" aria-labelledby="register-tab">
+          <label class="access-field" for="register-action">Workspace
+            <select id="register-action" name="action">
+              <option value="create">I’m the owner creating a new workspace</option>
+              <option value="join">I’m joining my company’s workspace</option>
+            </select>
+          </label>
+          <label class="access-field" for="company-name">Company name
+            <input id="company-name" name="company" type="text" autocomplete="organization" placeholder="Your company" maxlength="120" required />
+          </label>
+          <label class="access-field" for="register-join-code">Private company join code
+            <input id="register-join-code" name="joinCode" type="password" autocomplete="new-password" minlength="16" maxlength="128" placeholder="Use a private phrase of 16+ characters" required />
+          </label>
+          <label class="access-field" for="full-name">Your name
+            <input id="full-name" name="name" type="text" autocomplete="name" placeholder="Full name" maxlength="120" required />
+          </label>
+          <label class="access-field" for="register-email">Work email
+            <input id="register-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" maxlength="254" required />
+          </label>
+          <label class="access-field" for="register-password">Create password
+            <input id="register-password" name="password" type="password" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required />
+          </label>
+          <button class="access-submit" type="submit">Create company account <span aria-hidden="true">→</span></button>
+          <p class="access-status" id="register-status" role="status" aria-live="polite"></p>
+        </form>
+        <form class="access-form" id="login-panel" role="tabpanel" aria-labelledby="login-tab" hidden>
+          <label class="access-field" for="login-action">Workspace
+            <select id="login-action" name="action">
+              <option value="join">Join existing company</option>
+              <option value="create">I’m the owner creating a new workspace</option>
+            </select>
+          </label>
+          <label class="access-field" for="login-company">Company name
+            <input id="login-company" name="company" type="text" autocomplete="organization" placeholder="Exact company name" maxlength="120" required />
+          </label>
+          <label class="access-field" for="login-join-code">Private company join code
+            <input id="login-join-code" name="joinCode" type="password" autocomplete="off" minlength="16" maxlength="128" placeholder="Ask the company owner" required />
+          </label>
+          <label class="access-field" for="login-email">Work email
+            <input id="login-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" maxlength="254" required />
+          </label>
+          <label class="access-field" for="login-password">Password
+            <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required />
+          </label>
+          <button class="access-submit" type="submit">Log in to your workspace <span aria-hidden="true">→</span></button>
+          <p class="access-status" id="login-status" role="status" aria-live="polite"></p>
+        </form>
+        <p class="access-preview-note"><strong>Private workspace access.</strong> The company name and private join code are both required. Owners should share the join code only with their team.</p>
+        <p class="access-card-footer">Just looking around? <a href="index.html">Continue to the tracker</a></p>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabase-config.js" defer></script>
+    <script src="supabase-client.js" defer></script>
+    <script src="company-access.js" defer></script>
+  </body>
+</html>

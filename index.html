@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173a57" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Kanvas Kings" />
+    <meta name="description" content="An offline-friendly door knock tracker with a map, outcomes, and exportable results." />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Kanvas Kings</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand brand-drop-target" id="brand-logo-dropzone"><button class="brand-logo-button" id="brand-logo-button" type="button" title="Change logo" aria-label="Choose a Kanvas Kings logo"><img class="brand-logo" id="brand-logo" src="icon.svg" alt="" width="72" height="72" /></button><input id="brand-logo-input" type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" hidden /><span class="brand-name"><span class="brand-kanvas"><span class="brand-initial">K<span class="brand-crown" aria-hidden="true">♛</span></span>anvas</span><span class="brand-kings">Kings</span></span><button class="brand-paste-button" id="brand-paste-button" type="button" title="Paste a copied logo" aria-label="Paste a copied logo">Paste</button></div>
+      <nav class="top-nav" aria-label="Page sections"><a href="#log-door">Log a door</a><a href="#map-section">Map</a><a href="#results">Results</a><a href="company-access.html">Company access</a></nav>
+      <div class="topbar-right"><span class="connection-status" id="connection-status"><span class="connection-dot"></span><span id="connection-label">Online</span></span><span class="workspace-label" id="workspace-label" hidden></span><button class="button button-quiet workspace-signout" id="workspace-signout" type="button" hidden>Sign out</button><button class="button button-install" id="install-button" type="button" hidden>Install app</button><span class="date-chip" id="today-label"></span></div>
+    </header>
+    <div class="logo-feedback" id="logo-feedback" role="status" aria-live="polite" hidden></div>
+    <div class="logo-paste-target" id="logo-paste-target" contenteditable="true" tabindex="-1" aria-label="Paste copied logo image here"></div>
+    <main id="top">
+      <section class="intro-row"><div><p class="eyebrow">YOUR FIELDWORK, AT A GLANCE</p><h1>Every door tells a story.</h1><p class="intro-copy">Keep track of the conversations that move your work forward.</p></div><div class="intro-mark" aria-hidden="true"><span>↗</span><i></i></div></section>
+      <div class="offline-note" id="offline-note" role="status" hidden><span class="offline-icon" aria-hidden="true">⌁</span><span><strong>You’re offline.</strong> Your saved doors are available. New addresses need a connection to find their map pin.</span></div>
+      <section class="stats-grid" id="stats" aria-label="Door knock results"></section>
+      <div class="work-grid">
+        <section class="map-card panel" id="map-section" aria-labelledby="map-title">
+          <div class="panel-heading map-heading"><div><p class="eyebrow">YOUR NEIGHBORHOOD</p><h2 id="map-title">Knock map</h2></div><div class="map-actions"><span class="location-status" id="location-status" aria-live="polite" hidden></span><button class="icon-button location-button" id="locate-me" type="button" title="Start live location" aria-label="Start live location" aria-pressed="false"><span aria-hidden="true">⊙</span></button><button class="icon-button" id="fit-map" type="button" title="Zoom to all pins" aria-label="Zoom to all pins"><span aria-hidden="true">⌖</span></button></div></div>
+          <form class="map-search-form" id="map-search-form"><label class="sr-only" for="map-address-search">Search an address on the map</label><div class="map-search-control"><span aria-hidden="true">⌕</span><input id="map-address-search" type="search" placeholder="Find an address on the map" maxlength="180" required /><button class="button button-map-search" id="map-search-button" type="submit"><span aria-hidden="true">⌕</span> Find address</button></div></form>
+          <div class="map-wrap"><div id="map" aria-label="Map showing logged doors across the United States"></div><div id="map-fallback" class="map-fallback" hidden>Map tiles need an internet connection. Your saved door records are still available.</div></div>
+          <div class="map-legend" aria-label="Map outcome legend"><span><i class="legend-pin legend-no-answer">?</i>No answer</span><span><i class="legend-pin legend-qualified">★</i>Qualified lead</span><span><i class="legend-pin legend-sale">⌂</i>Sale</span><span><i class="legend-pin legend-completed">✓</i>Completed job</span><span><i class="legend-pin legend-retail-roof-complete">$</i>Retail roof complete</span><span><i class="legend-pin legend-not-interested"><span>👎</span></i>Not interested</span><span><i class="legend-pin legend-do-not-disturb">☠</i>Do not disturb</span><span><i class="legend-pin legend-new-roof">☹</i>New roof</span><span><i class="legend-pin legend-approved-roof">$</i>Approved roof</span></div>
+        </section>
+        <section class="log-card panel" id="log-door" aria-labelledby="log-title">
+          <div class="panel-heading log-heading"><div><p class="eyebrow">ADD TO YOUR ROUTE</p><h2 id="log-title">Log a door</h2></div><span class="form-step" aria-hidden="true">01</span></div>
+          <form id="door-form">
+            <label class="field-label" for="address">Street address <span class="required-mark">*</span></label><input id="address" name="address" placeholder="123 Main St, Schwenksville, PA" autocomplete="street-address" maxlength="180" required />
+            <div class="form-row"><div><label class="field-label" for="date">Date</label><input id="date" name="date" type="date" required /></div><div><label class="field-label" for="outcome">Outcome</label><select id="outcome" name="outcome"><option>No Answer</option><option>Qualified Lead</option><option>Sale</option><option>Completed Job</option><option>Retail Roof Complete</option><option>Not Interested</option><option>Do Not Disturb</option><option>New Roof</option><option>Approved Roof</option></select></div></div>
+            <div class="form-row"><div><label class="field-label" for="contact">Contact name <span class="optional">Optional</span></label><input id="contact" name="contact" placeholder="Name at the door" maxlength="100" autocomplete="name" /></div><div><label class="field-label" for="phone">Phone or email <span class="optional">Optional</span></label><input id="phone" name="phone" placeholder="How to reach them" maxlength="120" autocomplete="off" /></div></div>
+            <label class="field-label" for="notes">Conversation notes <span class="optional">Optional</span></label><textarea id="notes" name="notes" placeholder="Interests, a good time to return, or anything worth remembering" maxlength="1000" rows="3"></textarea>
+            <button class="button button-primary save-button" id="save-button" type="submit"><span aria-hidden="true">＋</span> Save door &amp; add pin</button><p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </div>
+      <section class="results-card panel" id="results" aria-labelledby="results-title">
+        <div class="panel-heading results-heading"><div><p class="eyebrow">THE WORK SO FAR</p><h2 id="results-title">Door history <span class="record-count" id="record-count">0</span></h2></div><div class="result-actions"><button class="button button-quiet" id="export-csv" type="button"><span aria-hidden="true">↓</span> Export CSV</button><button class="button button-quiet" id="print-results" type="button"><span aria-hidden="true">▤</span> Print</button><button class="button button-danger-quiet" id="clear-all" type="button">Clear all</button></div></div>
+        <div class="filter-row"><label class="filter-control"><span>Outcome</span><select id="filter"><option value="All">All outcomes</option><option>No Answer</option><option>Qualified Lead</option><option>Sale</option><option>Completed Job</option><option>Retail Roof Complete</option><option>Not Interested</option><option>Do Not Disturb</option><option>New Roof</option><option>Approved Roof</option></select></label><label class="search-control"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search address, contact, notes" aria-label="Search door records" /></label><span class="showing-count" id="showing-count"></span></div>
+        <div class="table-scroll"><table><thead><tr><th>Date</th><th>Address</th><th>Outcome</th><th>Contact</th><th>Notes</th><th class="no-print"><span class="sr-only">Actions</span></th></tr></thead><tbody id="entries"></tbody></table></div>
+      </section>
+      <footer class="page-footer"><span>One conversation at a time.</span><span>Satellite imagery © Esri, Maxar, Earthstar Geographics <span class="footer-spark">✳</span></span></footer>
+    </main>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabase-config.js" defer></script>
+    <script src="supabase-client.js" defer></script>
+    <script src="app.js" defer></script>
+  </body>
+</html>

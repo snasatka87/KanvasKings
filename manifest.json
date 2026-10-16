@@ -1,0 +1,11 @@
+{
+  "name": "Kanvas Kings",
+  "short_name": "Kanvas Kings",
+  "description": "An offline-friendly tracker for door-to-door outreach.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f2f5f6",
+  "theme_color": "#173a57",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
